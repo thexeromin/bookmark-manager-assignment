@@ -3,6 +3,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { poppins } from "@/config/fonts";
 import "./globals.css";
 import Navbar from "@/components/organisms/navbar";
+import { Toaster } from "@/components/atoms/toaster";
 
 export const metadata: Metadata = {
   title: "BManager",
@@ -24,6 +25,7 @@ export default function RootLayout({
             <section className="container mx-auto px-4 max-w-5xl">
               {children}
             </section>
+            <Toaster />
           </main>
         </body>
       </html>

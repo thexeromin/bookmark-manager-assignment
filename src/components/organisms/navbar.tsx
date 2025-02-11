@@ -8,6 +8,13 @@ import { usePathname } from "next/navigation";
 import { AlignJustify, X } from "lucide-react";
 import { Button } from "../atoms/button";
 
+const signedInLinks = [
+  {
+    label: "Dashboard",
+    href: "/dashboard"
+  }
+];
+
 const links = [
   {
     label: "Product",
@@ -60,21 +67,41 @@ export default function Navbar() {
             </div>
             <div className="hidden sm:ml-6 sm:block">
               <div className="flex space-x-4">
-                {links.map((link) => (
-                  <Link
-                    href={link.href}
-                    key={link.label}
-                    className={clsx(
-                      "px-3 py-2 text-sm font-medium text-black underline-offset-4 hover:underline",
-                      {
-                        underline: pathname === link.href
-                      }
-                    )}
-                    aria-current={pathname === link.href && "page"}
-                  >
-                    {link.label}
-                  </Link>
-                ))}
+                <SignedOut>
+                  {links.map((link) => (
+                    <Link
+                      href={link.href}
+                      key={link.label}
+                      className={clsx(
+                        "px-3 py-2 text-sm font-medium text-black underline-offset-4 hover:underline",
+                        {
+                          underline: pathname === link.href
+                        }
+                      )}
+                      aria-current={pathname === link.href && "page"}
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                </SignedOut>
+
+                <SignedIn>
+                  {signedInLinks.map((link) => (
+                    <Link
+                      href={link.href}
+                      key={link.label}
+                      className={clsx(
+                        "px-3 py-2 text-sm font-medium text-black underline-offset-4 hover:underline",
+                        {
+                          underline: pathname === link.href
+                        }
+                      )}
+                      aria-current={pathname === link.href && "page"}
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                </SignedIn>
               </div>
             </div>
           </div>
