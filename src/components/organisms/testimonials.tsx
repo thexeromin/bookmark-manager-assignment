@@ -8,12 +8,12 @@ export default function Testimonials() {
         {[
           {
             name: "Jane Doe",
-            feedback: "This bookmark manager changed how I browse the web!",
+            feedback: "This bookmark manager changed how I browse the web!"
           },
           {
             name: "John Smith",
-            feedback: "Super easy to use and keeps everything organized.",
-          },
+            feedback: "Super easy to use and keeps everything organized."
+          }
         ].map((testimonial, index) => (
           <div
             key={index}

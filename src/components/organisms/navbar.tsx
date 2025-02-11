@@ -10,20 +10,20 @@ import { Button } from "../atoms/button";
 const links = [
   {
     label: "Product",
-    href: "/product",
+    href: "/product"
   },
   {
     label: "Docs",
-    href: "/docs",
+    href: "/docs"
   },
   {
     label: "Changelog",
-    href: "/changelog",
+    href: "/changelog"
   },
   {
     label: "Pricing",
-    href: "/pricing",
-  },
+    href: "/pricing"
+  }
 ];
 
 export default function Navbar() {
@@ -66,7 +66,7 @@ export default function Navbar() {
                     className={clsx(
                       "px-3 py-2 text-sm font-medium text-black underline-offset-4 hover:underline",
                       {
-                        underline: pathname === link.href,
+                        underline: pathname === link.href
                       }
                     )}
                     aria-current={pathname === link.href && "page"}
@@ -102,7 +102,7 @@ export default function Navbar() {
                 className={clsx(
                   "block rounded-md px-3 py-2 text-base font-medium text-black hover:bg-white-800",
                   {
-                    "bg-blue-800": pathname === link.href,
+                    "bg-blue-800": pathname === link.href
                   }
                 )}
                 aria-current={pathname === link.href && "page"}

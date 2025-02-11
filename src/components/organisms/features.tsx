@@ -8,16 +8,16 @@ export default function Features() {
         {[
           {
             title: "Easy Organization",
-            description: "Categorize your bookmarks for quick access.",
+            description: "Categorize your bookmarks for quick access."
           },
           {
             title: "Sync Across Devices",
-            description: "Access your bookmarks anywhere, anytime.",
+            description: "Access your bookmarks anywhere, anytime."
           },
           {
             title: "One-Click Saving",
-            description: "Save your favorite links with a single click.",
-          },
+            description: "Save your favorite links with a single click."
+          }
         ].map((feature, index) => (
           <div
             key={index}

@@ -5,11 +5,11 @@ import Navbar from "@/components/organisms/navbar";
 
 export const metadata: Metadata = {
   title: "BManager",
-  description: "A bookmark manager",
+  description: "A bookmark manager"
 };
 
 export default function RootLayout({
-  children,
+  children
 }: Readonly<{
   children: React.ReactNode;
 }>) {
@@ -19,7 +19,9 @@ export default function RootLayout({
         <main>
           <Navbar />
 
-          <section className="container mx-auto px-4 max-w-5xl">{children}</section>
+          <section className="container mx-auto px-4 max-w-5xl">
+            {children}
+          </section>
         </main>
       </body>
     </html>
