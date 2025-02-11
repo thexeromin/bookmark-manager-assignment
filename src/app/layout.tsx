@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { montserrat } from "@/config/fonts";
+import { poppins } from "@/config/fonts";
 import "./globals.css";
-
+import Navbar from "@/components/organisms/navbar";
 
 export const metadata: Metadata = {
   title: "BManager",
@@ -15,10 +15,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${montserrat.variable} antialiased font-montserrat`}
-      >
-        {children}
+      <body className={`${poppins.variable} antialiased font-poppins`}>
+        <main>
+          <Navbar />
+
+          <section className="container mx-auto px-4 max-w-5xl">{children}</section>
+        </main>
       </body>
     </html>
   );
