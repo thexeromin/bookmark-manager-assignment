@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ClerkProvider } from "@clerk/nextjs";
 import { poppins } from "@/config/fonts";
 import "./globals.css";
 import Navbar from "@/components/organisms/navbar";
@@ -14,16 +15,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${poppins.variable} antialiased font-poppins`}>
-        <main>
-          <Navbar />
+    <ClerkProvider>
+      <html lang="en">
+        <body className={`${poppins.variable} antialiased font-poppins`}>
+          <main>
+            <Navbar />
 
-          <section className="container mx-auto px-4 max-w-5xl">
-            {children}
-          </section>
-        </main>
-      </body>
-    </html>
+            <section className="container mx-auto px-4 max-w-5xl">
+              {children}
+            </section>
+          </main>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import clsx from "clsx";
+import { SignedIn, SignedOut, UserButton, useClerk } from "@clerk/nextjs";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AlignJustify, X } from "lucide-react";
@@ -28,7 +29,7 @@ const links = [
 
 export default function Navbar() {
   const pathname = usePathname();
-  // const { status } = useSession();
+  const { openSignIn, openSignUp } = useClerk();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
@@ -78,15 +79,22 @@ export default function Navbar() {
             </div>
           </div>
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-            <Link
-              href="/login"
-              className="px-3 py-2 text-sm font-bold text-black flex justify-center items-center underline-offset-4 hover:underline"
-            >
-              <span>Login</span>
-            </Link>
-            <Link href="/register" className="hidden md:block">
-              <Button>Sign up free</Button>
-            </Link>
+            <SignedOut>
+              <p
+                onClick={() => openSignIn()}
+                className="px-3 py-2 text-sm font-bold text-black flex justify-center items-center underline-offset-4 hover:underline"
+              >
+                <span>Login</span>
+              </p>
+
+              <p className="hidden md:block" onClick={() => openSignUp()}>
+                <Button>Sign up free</Button>
+              </p>
+            </SignedOut>
+
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
           </div>
         </div>
       </div>
