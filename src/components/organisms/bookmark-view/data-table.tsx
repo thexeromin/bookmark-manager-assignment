@@ -23,6 +23,7 @@ import {
 } from "@/components/atoms/table";
 import DeleteBookmarkForm from "../delete-bookmark-form";
 import { Bookmark } from "./columns";
+import UpdateBookmarkModal from "../update-bookmark-modal";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -101,6 +102,11 @@ export function DataTable<TData, TValue>({
                     </TableCell>
                   ))}
                   <TableCell onClick={() => console.log(row.original)}>
+                    <UpdateBookmarkModal
+                      bookmark={(row.original as Bookmark)}
+                      onSuccess={refetch}
+                     />
+
                     <DeleteBookmarkForm
                       id={(row.original as Bookmark).id}
                       title={(row.original as Bookmark).title}

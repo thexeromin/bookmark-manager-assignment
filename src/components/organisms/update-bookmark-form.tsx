@@ -15,47 +15,54 @@ import {
 } from "@/components/atoms/form";
 import { Input } from "@/components/atoms/input";
 import { Button } from "../atoms/button";
+import { Bookmark } from "./bookmark-view/columns";
 import { DialogTrigger } from "@radix-ui/react-dialog";
 
 interface Props {
-  userId: string;
+  bookmark: Bookmark;
+  onSuccess(): void;
 }
 
 const formSchema = z.object({
-  name: z.string().min(4, {
-    message: "Name must be at least 4 characters."
-  })
+  label: z.string().min(4, {
+    message: "Label must be at least 4 characters."
+  }),
+  url: z.string({ message: "URL is required." }),
+  userId: z.string({ message: "User Id is required." })
 });
 
-export default function AddCategoriesForm(props: Props) {
+export default function UpdateBookmarkForm(props: Props) {
   const { toast } = useToast();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: ""
+      label: props.bookmark.title,
+      url: props.bookmark.url,
+      userId: props.bookmark?.userId
     }
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      const req = await fetch("/api/categories", {
-        method: "POST",
+      const req = await fetch(`/api/bookmarks/${props.bookmark.id}`, {
+        method: "PATCH",
         credentials: "include",
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          name: values.name,
-          userId: props.userId
+          title: values.label,
+          url: values.url,
+          userId: props.bookmark?.userId
         })
       });
 
       // alert message
       toast({
         title: "Congrats!",
-        description: "Your category is created."
+        description: "Your bookmark is updated."
       });
-      form.reset();
+      props.onSuccess();
     } catch (err) {
       console.log(err);
     }
@@ -67,18 +74,31 @@ export default function AddCategoriesForm(props: Props) {
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField
             control={form.control}
-            name="name"
+            name="label"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Name</FormLabel>
+                <FormLabel>Label</FormLabel>
                 <FormControl>
-                  <Input placeholder="Personal" {...field} />
+                  <Input placeholder="Google" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
 
+          <FormField
+            control={form.control}
+            name="url"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>URL</FormLabel>
+                <FormControl>
+                  <Input placeholder="https://google.com" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           <DialogTrigger asChild>
             <Button type="submit">Save Changes</Button>
           </DialogTrigger>
