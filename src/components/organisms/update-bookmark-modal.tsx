@@ -9,13 +9,21 @@ import {
 
 import UpdateBookmarkForm from "./update-bookmark-form";
 import { Bookmark } from "./bookmark-view/columns";
+import { Category } from "@/types";
 
 interface Props {
   bookmark: Bookmark;
   onSuccess: () => void;
+  categories: Category[];
+  c_id?: string;
 }
 
-export default function UpdateBookmarkModal({ bookmark, onSuccess }: Props) {
+export default function UpdateBookmarkModal({
+  bookmark,
+  onSuccess,
+  categories,
+  c_id
+}: Props) {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -28,7 +36,12 @@ export default function UpdateBookmarkModal({ bookmark, onSuccess }: Props) {
           <DialogTitle />
         </DialogHeader>
         {bookmark && (
-          <UpdateBookmarkForm bookmark={bookmark} onSuccess={onSuccess} />
+          <UpdateBookmarkForm
+            bookmark={bookmark}
+            onSuccess={onSuccess}
+            categories={categories}
+            c_id={c_id}
+          />
         )}
       </DialogContent>
     </Dialog>

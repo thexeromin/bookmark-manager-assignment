@@ -83,14 +83,18 @@ export default function ManageBookmark(props: Props) {
       </div>
 
       <div className="container mx-auto py-10">
+        {query.isLoading && <p>Loading</p>}
         {query.data?.docs && (
           <DataTable
             columns={columns}
+            userId={props.userID}
             data={query.data.docs.map((item: any) => ({
               id: item.id,
               title: item.title,
               url: item.url,
-              userId: item.userId
+              userId: item.userId,
+              category: item.category?.name || '',
+              category_id: item.category?.id || ''
             }))}
             onSuccess={handleRefetch}
           />

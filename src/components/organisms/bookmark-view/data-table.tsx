@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { useQuery } from "@tanstack/react-query";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -28,13 +29,15 @@ import UpdateBookmarkModal from "../update-bookmark-modal";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
-  onSuccess: () => void
+  onSuccess: () => void;
+  userId: string;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
-  onSuccess: refetch
+  onSuccess: refetch,
+  userId
 }: DataTableProps<TData, TValue>) {
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -52,14 +55,29 @@ export function DataTable<TData, TValue>({
     }
   });
 
+  // get categories
+  async function getCategories() {
+    try {
+      const req = await fetch(
+        `/api/categories?where[userId][equals]=${userId}`
+      );
+      const data = await req.json();
+      return data;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  const query = useQuery({ queryKey: ["categories"], queryFn: getCategories });
+
   return (
     <div>
       <div className="flex items-center py-2">
         <Input
-          placeholder="Search title..."
-          value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
+          placeholder="Search..."
+          value={(table.getState().globalFilter as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("title")?.setFilterValue(event.target.value)
+            table.setGlobalFilter(event.target.value)
           }
           className="max-w-sm"
         />
@@ -102,10 +120,14 @@ export function DataTable<TData, TValue>({
                     </TableCell>
                   ))}
                   <TableCell onClick={() => console.log(row.original)}>
-                    <UpdateBookmarkModal
-                      bookmark={(row.original as Bookmark)}
-                      onSuccess={refetch}
-                     />
+                    {query.data?.docs && (
+                      <UpdateBookmarkModal
+                        bookmark={row.original as Bookmark}
+                        onSuccess={refetch}
+                        categories={query.data.docs}
+                        c_id={(row.original as any).category_id}
+                      />
+                    )}
 
                     <DeleteBookmarkForm
                       id={(row.original as Bookmark).id}

@@ -13,14 +13,24 @@ import {
   FormLabel,
   FormMessage
 } from "@/components/atoms/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from "@/components/atoms/select";
 import { Input } from "@/components/atoms/input";
 import { Button } from "../atoms/button";
 import { Bookmark } from "./bookmark-view/columns";
 import { DialogTrigger } from "@radix-ui/react-dialog";
+import { Category } from "@/types";
 
 interface Props {
   bookmark: Bookmark;
   onSuccess(): void;
+  categories: Category[];
+  c_id?: string;
 }
 
 const formSchema = z.object({
@@ -28,6 +38,7 @@ const formSchema = z.object({
     message: "Label must be at least 4 characters."
   }),
   url: z.string({ message: "URL is required." }),
+  category: z.string().optional(),
   userId: z.string({ message: "User Id is required." })
 });
 
@@ -38,7 +49,8 @@ export default function UpdateBookmarkForm(props: Props) {
     defaultValues: {
       label: props.bookmark.title,
       url: props.bookmark.url,
-      userId: props.bookmark?.userId
+      userId: props.bookmark?.userId,
+      category: props?.c_id
     }
   });
 
@@ -53,7 +65,8 @@ export default function UpdateBookmarkForm(props: Props) {
         body: JSON.stringify({
           title: values.label,
           url: values.url,
-          userId: props.bookmark?.userId
+          userId: props.bookmark?.userId,
+          category: values.category
         })
       });
 
@@ -95,6 +108,34 @@ export default function UpdateBookmarkForm(props: Props) {
                 <FormControl>
                   <Input placeholder="https://google.com" {...field} />
                 </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="category"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Category</FormLabel>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select a category" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {props.categories.map((category) => (
+                      <SelectItem key={category.id} value={category.id}>
+                        {category.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
                 <FormMessage />
               </FormItem>
             )}

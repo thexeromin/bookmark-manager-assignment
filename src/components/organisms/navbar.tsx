@@ -7,6 +7,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AlignJustify, X } from "lucide-react";
 import { Button } from "../atoms/button";
+import { useRouter } from 'next/navigation'
 
 const signedInLinks = [
   {
@@ -36,7 +37,8 @@ const links = [
 
 export default function Navbar() {
   const pathname = usePathname();
-  const { openSignIn, openSignUp } = useClerk();
+  const router = useRouter();
+  const { openSignIn, openSignUp, signOut } = useClerk();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
@@ -108,7 +110,9 @@ export default function Navbar() {
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             <SignedOut>
               <p
-                onClick={() => openSignIn()}
+                onClick={() => {
+                  openSignIn({forceRedirectUrl: "/dashboard"});
+                }}
                 className="px-3 py-2 text-sm font-bold text-black flex justify-center items-center underline-offset-4 hover:underline"
               >
                 <span>Login</span>
@@ -120,7 +124,16 @@ export default function Navbar() {
             </SignedOut>
 
             <SignedIn>
-              <UserButton />
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  signOut();
+                  router.push("/");
+                }}
+              >
+                Logout
+              </Button>
             </SignedIn>
           </div>
         </div>
