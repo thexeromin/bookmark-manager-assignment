@@ -5,6 +5,12 @@ export const Categories: CollectionConfig = {
   admin: {
     useAsTitle: "name"
   },
+  access: {
+    read: () => true,
+    update: () => true,
+    delete: () => true,
+    create: () => true,
+  },
   timestamps: true,
   fields: [
     {

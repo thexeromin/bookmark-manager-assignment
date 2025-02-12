@@ -18,6 +18,7 @@ import { Button } from "../atoms/button";
 
 interface Props {
   userId: string;
+  onSuccess(): void
 }
 
 const formSchema = z.object({
@@ -59,6 +60,7 @@ export default function AddBookmarkForm(props: Props) {
         title: "Congrats!",
         description: "Your bookmark is saved."
       });
+      props.onSuccess();
       form.reset();
     } catch (err) {
       console.log(err);

@@ -5,6 +5,12 @@ export const Bookmarks: CollectionConfig = {
   admin: {
     useAsTitle: "title"
   },
+  access: {
+    read: () => true,
+    update: () => true,
+    delete: () => true,
+    create: () => true,
+  },
   timestamps: true,
   fields: [
     {
