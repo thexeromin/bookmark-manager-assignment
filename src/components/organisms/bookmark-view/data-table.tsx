@@ -21,15 +21,19 @@ import {
   TableHeader,
   TableRow
 } from "@/components/atoms/table";
+import DeleteBookmarkForm from "../delete-bookmark-form";
+import { Bookmark } from "./columns";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  onSuccess: () => void
 }
 
 export function DataTable<TData, TValue>({
   columns,
-  data
+  data,
+  onSuccess: refetch
 }: DataTableProps<TData, TValue>) {
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -77,6 +81,7 @@ export function DataTable<TData, TValue>({
                     </TableHead>
                   );
                 })}
+                <TableHead>Actions</TableHead>
               </TableRow>
             ))}
           </TableHeader>
@@ -95,6 +100,13 @@ export function DataTable<TData, TValue>({
                       )}
                     </TableCell>
                   ))}
+                  <TableCell onClick={() => console.log(row.original)}>
+                    <DeleteBookmarkForm
+                      id={(row.original as Bookmark).id}
+                      title={(row.original as Bookmark).title}
+                      onSuccess={refetch}
+                    />
+                  </TableCell>
                 </TableRow>
               ))
             ) : (

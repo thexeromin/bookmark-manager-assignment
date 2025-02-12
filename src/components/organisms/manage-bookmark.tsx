@@ -23,7 +23,7 @@ interface Props {
 export default function ManageBookmark(props: Props) {
   async function getBookmarks() {
     try {
-      const req = await fetch(`/api/bookmarks`);
+      const req = await fetch(`/api/bookmarks?where[userId][equals]=${props.userID}`);
       const data = await req.json();
       return data;
     } catch (err) {
@@ -31,7 +31,7 @@ export default function ManageBookmark(props: Props) {
     }
   }
 
-  const query = useQuery({ queryKey: ["todos"], queryFn: getBookmarks });
+  const query = useQuery({ queryKey: ["bookmarks"], queryFn: getBookmarks });
 
   function handleRefetch() {
     query.refetch();
@@ -92,6 +92,7 @@ export default function ManageBookmark(props: Props) {
               url: item.url,
               userId: item.userId
             }))}
+            onSuccess={handleRefetch}
           />
         )}
       </div>
