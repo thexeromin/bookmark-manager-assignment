@@ -38,7 +38,7 @@ export default function AddCategoriesForm(props: Props) {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      const req = await fetch("/api/categories", {
+      await fetch("/api/categories", {
         method: "POST",
         credentials: "include",
         headers: {

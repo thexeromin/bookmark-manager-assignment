@@ -9,7 +9,7 @@ export const Categories: CollectionConfig = {
     read: () => true,
     update: () => true,
     delete: () => true,
-    create: () => true,
+    create: () => true
   },
   timestamps: true,
   fields: [

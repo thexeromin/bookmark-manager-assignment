@@ -26,7 +26,7 @@ export default function DeleteBookmarkForm(props: Props) {
           "Content-Type": "application/json"
         }
       });
-      const data = await req.json();
+      await req.json();
       props.onSuccess();
     } catch (err) {
       console.log(err);
@@ -63,9 +63,7 @@ export default function DeleteBookmarkForm(props: Props) {
 
           <div className="flex justify-center items-center gap-x-2 mt-10">
             <DialogTrigger asChild>
-              <Button variant={"outline"}>
-                Cancel
-              </Button>
+              <Button variant={"outline"}>Cancel</Button>
             </DialogTrigger>
             <DialogTrigger asChild>
               <Button variant="destructive" onClick={handleDelete}>

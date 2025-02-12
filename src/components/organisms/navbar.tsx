@@ -2,12 +2,12 @@
 
 import React, { useState } from "react";
 import clsx from "clsx";
-import { SignedIn, SignedOut, UserButton, useClerk } from "@clerk/nextjs";
+import { SignedIn, SignedOut, useClerk } from "@clerk/nextjs";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AlignJustify, X } from "lucide-react";
 import { Button } from "../atoms/button";
-import { useRouter } from 'next/navigation'
+import { useRouter } from "next/navigation";
 
 const signedInLinks = [
   {
@@ -111,7 +111,7 @@ export default function Navbar() {
             <SignedOut>
               <p
                 onClick={() => {
-                  openSignIn({forceRedirectUrl: "/dashboard"});
+                  openSignIn({ forceRedirectUrl: "/dashboard" });
                 }}
                 className="px-3 py-2 text-sm font-bold text-black flex justify-center items-center underline-offset-4 hover:underline"
               >

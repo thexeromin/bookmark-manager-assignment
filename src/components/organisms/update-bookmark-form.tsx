@@ -56,7 +56,7 @@ export default function UpdateBookmarkForm(props: Props) {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      const req = await fetch(`/api/bookmarks/${props.bookmark.id}`, {
+      await fetch(`/api/bookmarks/${props.bookmark.id}`, {
         method: "PATCH",
         credentials: "include",
         headers: {

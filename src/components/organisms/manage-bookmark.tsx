@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { Button } from "@/components/atoms/button";
@@ -23,7 +24,9 @@ interface Props {
 export default function ManageBookmark(props: Props) {
   async function getBookmarks() {
     try {
-      const req = await fetch(`/api/bookmarks?where[userId][equals]=${props.userID}`);
+      const req = await fetch(
+        `/api/bookmarks?where[userId][equals]=${props.userID}`
+      );
       const data = await req.json();
       return data;
     } catch (err) {
@@ -53,7 +56,7 @@ export default function ManageBookmark(props: Props) {
               <DialogHeader>
                 <DialogTitle>Add Bookmark</DialogTitle>
                 <DialogDescription>
-                  Fill in the details. Click save when you're done.
+                  Fill in the details. Click save when you&apos;re done.
                 </DialogDescription>
               </DialogHeader>
               <AddBookmarkForm
@@ -73,7 +76,7 @@ export default function ManageBookmark(props: Props) {
               <DialogHeader>
                 <DialogTitle>Add Category</DialogTitle>
                 <DialogDescription>
-                  Fill in the details. Click save when you're done.
+                  Fill in the details. Click save when you&apos;re done.
                 </DialogDescription>
               </DialogHeader>
               <AddCategoriesForm userId={props.userID} />
@@ -93,8 +96,8 @@ export default function ManageBookmark(props: Props) {
               title: item.title,
               url: item.url,
               userId: item.userId,
-              category: item.category?.name || '',
-              category_id: item.category?.id || ''
+              category: item.category?.name || "",
+              category_id: item.category?.id || ""
             }))}
             onSuccess={handleRefetch}
           />

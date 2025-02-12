@@ -22,5 +22,5 @@ export const columns: ColumnDef<Bookmark>[] = [
   {
     accessorKey: "category",
     header: "Category"
-  },
+  }
 ];

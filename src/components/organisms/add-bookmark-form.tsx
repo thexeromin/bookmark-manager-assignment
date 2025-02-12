@@ -18,7 +18,7 @@ import { Button } from "../atoms/button";
 
 interface Props {
   userId: string;
-  onSuccess(): void
+  onSuccess(): void;
 }
 
 const formSchema = z.object({
@@ -42,7 +42,7 @@ export default function AddBookmarkForm(props: Props) {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      const req = await fetch("/api/bookmarks", {
+      await fetch("/api/bookmarks", {
         method: "POST",
         credentials: "include",
         headers: {

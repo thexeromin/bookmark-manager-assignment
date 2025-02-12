@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import React from "react";
@@ -76,9 +77,7 @@ export function DataTable<TData, TValue>({
         <Input
           placeholder="Search..."
           value={(table.getState().globalFilter as string) ?? ""}
-          onChange={(event) =>
-            table.setGlobalFilter(event.target.value)
-          }
+          onChange={(event) => table.setGlobalFilter(event.target.value)}
           className="max-w-sm"
         />
       </div>
