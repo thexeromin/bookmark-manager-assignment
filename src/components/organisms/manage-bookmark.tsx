@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
+import { Loader2 } from "lucide-react";
 import { Button } from "@/components/atoms/button";
 import {
   Dialog,
@@ -16,6 +17,10 @@ import AddCategoriesForm from "@/components/organisms/add-categories-form";
 import { columns } from "@/components/organisms/bookmark-view/columns";
 import { DataTable } from "@/components/organisms/bookmark-view/data-table";
 import { useQuery } from "@tanstack/react-query";
+
+export const Icons = {
+  spinner: Loader2
+};
 
 interface Props {
   userID: string;
@@ -86,7 +91,9 @@ export default function ManageBookmark(props: Props) {
       </div>
 
       <div className="container mx-auto py-10">
-        {query.isLoading && <p>Loading</p>}
+        {query.isLoading && (
+          <Icons.spinner className="h-10 w-10 animate-spin" />
+        )}
         {query.data?.docs && (
           <DataTable
             columns={columns}
